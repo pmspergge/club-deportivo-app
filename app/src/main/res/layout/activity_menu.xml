@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Menu">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="643dp"
+        android:dividerPadding="4sp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="1dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:text="Menú principal"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/button_agregar_cliente"
+            android:layout_width="416dp"
+            android:layout_height="68dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Agregar Cliente"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColorLink="@color/buttonLogin"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/button_Cobrar_cuota"
+            android:layout_width="417dp"
+            android:layout_height="71dp"
+            android:layout_marginBottom="20dp"
+            android:text="Cobrar cuota"
+            android:textAllCaps="true"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/button_cuotas_que_vencen_hoy"
+            android:layout_width="413dp"
+            android:layout_height="75dp"
+            android:layout_marginBottom="20dp"
+            android:text="Cuotas que vencen hoy"
+            android:textAllCaps="true"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/button_configuracion"
+            android:layout_width="407dp"
+            android:layout_height="72dp"
+            android:text="Configuración"
+            android:textAllCaps="true"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

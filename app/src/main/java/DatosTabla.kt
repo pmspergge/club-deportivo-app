@@ -1,0 +1,1 @@
+data class DatosTabla(val nombre: String, val importe: String)

@@ -1,7 +1,9 @@
 package com.example.clubdeportivo
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -15,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.Composable
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -26,6 +29,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             ClubDeportivoNavHost()
         }
+
+
     }
 }
 
@@ -74,6 +79,8 @@ fun ClubDeportivoApp(navController: NavController) {
             if (username.isNotBlank() && password.isNotBlank()) {
                 SharedPreferencesManager.saveUserData(username, "cliente", context)
                 navController.navigate("home") // Navega a la pantalla Home
+                val intent = Intent(context, Menu::class.java)
+                context.startActivity(intent) // Inicia la nueva actividad
             } else {
                 messageText = "Por favor, ingresa ambos campos."
                 showMessage = true
