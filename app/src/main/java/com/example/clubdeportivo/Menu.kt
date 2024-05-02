@@ -24,5 +24,11 @@ class Menu : AppCompatActivity() {
             val intent = Intent(this, Ver_morosos::class.java)
             startActivity(intent)
         }
+        val myButton2 = findViewById<Button>(R.id.button_agregar_cliente)
+        myButton2.setOnClickListener {
+            // Aquí es donde inicias la nueva actividad
+            val intent2 = Intent(this, registrar_cliente::class.java)
+            startActivity(intent2)
+        }
     }
 }

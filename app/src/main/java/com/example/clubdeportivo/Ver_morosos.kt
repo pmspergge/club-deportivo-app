@@ -2,7 +2,10 @@ package com.example.clubdeportivo
 
 import AdaptadorTabla
 import DatosTabla
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -20,6 +23,16 @@ class Ver_morosos : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+
+        val myButton = findViewById<ImageButton>(R.id.button_volver)
+        myButton.setOnClickListener {
+            // Aquí es donde inicias la nueva actividad
+            val intent = Intent(this, Menu::class.java)
+            startActivity(intent)
+        }
+
+
 // Obtener una referencia al RecyclerView desde el diseño
         val recyclerView: RecyclerView = findViewById(R.id.tablaMorosos)
 
@@ -41,8 +54,8 @@ class Ver_morosos : AppCompatActivity() {
         // Aquí puedes retornar una lista de datos para tu tabla
         // Por ejemplo, podrías consultar una base de datos o crear datos de muestra manualmente
         return listOf(
-            DatosTabla("Nombre1", "Importe1"),
-            DatosTabla("Nombre2", "Importe2"),
+            DatosTabla("Pedro Sanchez", "5.000$"),
+            DatosTabla("Julieta Ibañez", "8.000$"),
             // Agrega más datos según sea necesario
         )
     }
