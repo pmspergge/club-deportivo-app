@@ -1,0 +1,41 @@
+package com.example.clubdeportivo
+
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Button
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class Menu : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_menu)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+        val myButton = findViewById<Button>(R.id.button_cuotas_que_vencen_hoy)
+        myButton.setOnClickListener {
+            // Aquí es donde inicias la nueva actividad
+            val intent = Intent(this, Ver_morosos::class.java)
+            startActivity(intent)
+        }
+        val myButton2 = findViewById<Button>(R.id.button_agregar_cliente)
+        myButton2.setOnClickListener {
+            // Aquí es donde inicias la nueva actividad
+            val intent2 = Intent(this, registrar_cliente::class.java)
+            startActivity(intent2)
+        }
+
+        val myButton3 = findViewById<Button>(R.id.button_Cobrar_cuota)
+        myButton3.setOnClickListener {
+            // Aquí es donde inicias la nueva actividad
+            val intent3 = Intent(this, Pagar_cuota_socio::class.java)
+            startActivity(intent3)
+        }
+    }
+}
