@@ -1,0 +1,1 @@
+data class DatosTablaClientes(val nombre: String, val tipo: String, val edit: String, val elim: String)

@@ -72,7 +72,7 @@
             android:id="@+id/button_configuracion"
             android:layout_width="407dp"
             android:layout_height="72dp"
-            android:text="Configuración"
+            android:text="Ver Clientes"
             android:textAllCaps="true"
             android:textSize="20sp" />
 

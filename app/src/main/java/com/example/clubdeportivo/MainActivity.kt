@@ -2,8 +2,12 @@ package com.example.clubdeportivo
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -17,6 +21,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -54,6 +59,12 @@ class MainActivity : ComponentActivity() {
         dbHelper.insertCuota(2, "Febrero", "mensual", "2024-02-05", "2024-02", 2, 100.00, "2024-02-28")
         dbHelper.insertCuota(3, "Enero", "mensual", "2024-01-10", "2024-01", 1, 150.00, "2024-01-31")
         dbHelper.insertCuota(3, "Febrero", "mensual", "2024-02-10", "2024-02", 2, 150.00, "2024-02-28")
+    }
+
+
+    private fun navigateToActivity(activityClass: Class<*>) {
+        val intent = Intent(this, activityClass)
+        startActivity(intent)
     }
 }
 

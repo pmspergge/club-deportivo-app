@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".Ver_morosos">
 
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="340dp"
+        android:layout_height="59dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="#1330D1"
+        android:text="Volver"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="342dp"

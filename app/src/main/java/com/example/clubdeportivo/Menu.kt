@@ -37,5 +37,12 @@ class Menu : AppCompatActivity() {
             val intent3 = Intent(this, Pagar_cuota_socio::class.java)
             startActivity(intent3)
         }
+
+        val myButton4 = findViewById<Button>(R.id.button_configuracion)
+        myButton2.setOnClickListener {
+            // Aquí es donde inicias la nueva actividad
+            val intent4 = Intent(this, Ver_Clientes::class.java)
+            startActivity(intent4)
+        }
     }
 }
