@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class Ver_Clientes : AppCompatActivity() {
+class Ver_Clientes : AppCompatActivity(), AdaptadorTablaCliente.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -28,14 +28,11 @@ class Ver_Clientes : AppCompatActivity() {
             insets
         }
 
-
         val myButton = findViewById<ImageButton>(R.id.button_volver2)
         myButton.setOnClickListener {
             val intent = Intent(this, Menu::class.java)
             startActivity(intent)
         }
-
-
 
         val myButton2 = findViewById<Button>(R.id.button4)
         myButton2.setOnClickListener {
@@ -43,31 +40,26 @@ class Ver_Clientes : AppCompatActivity() {
             startActivity(intent)
         }
 
-
-
-        val myButton3: RecyclerView = findViewById(R.id.tablaClientes)
-        myButton3.setOnClickListener {
-            val intent = Intent(this, Editar_Cliente::class.java)
-            startActivity(intent)
-        }
-
-
         val recyclerView: RecyclerView = findViewById(R.id.tablaClientes)
-
-        val DatosTablaClientes = obtenerDatosTabla()
-
-        val adaptador = AdaptadorTablaCliente(this, DatosTablaClientes)
-
+        val datosTablaClientes = obtenerDatosTabla()
+        val adaptador = AdaptadorTablaCliente(this, datosTablaClientes, this)
         recyclerView.layoutManager = LinearLayoutManager(this)
-
         recyclerView.adapter = adaptador
+    }
 
+    override fun onEditClick(position: Int) {
+        val intent = Intent(this, Editar_Cliente::class.java)
+        startActivity(intent)
+    }
+
+    override fun onDeleteClick(position: Int) {
+        // Handle delete click
     }
 
     private fun obtenerDatosTabla(): List<DatosTablaClientes> {
         return listOf(
-            DatosTablaClientes("Pedro Sanchez","32.456.567","✏","❌"),
-            DatosTablaClientes("Julieta Ibañez","45.345.234","✏\uFE0F","❌"),
+            DatosTablaClientes("Pedro Sanchez", "Socio", "✏\uFE0F", "❌"),
+            DatosTablaClientes("Julieta Ibañez", "No Socio", "✏\uFE0F", "❌")
         )
     }
-    }
+}

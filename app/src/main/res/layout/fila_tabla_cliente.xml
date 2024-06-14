@@ -9,10 +9,12 @@
         android:id="@+id/textViewNombre_"
         android:layout_width="197dp"
         android:layout_height="34dp"
-        android:background="#03A9F4"
+        android:layout_marginTop="8dp"
+        android:background="#F8F9FA"
         android:padding="8dp"
         android:text="Nombre"
-        android:textColor="#F8F5F5"
+        android:textColor="#8C8787"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,10 +22,11 @@
         android:id="@+id/textViewTipo"
         android:layout_width="84dp"
         android:layout_height="34dp"
-        android:background="#03A9F4"
+        android:layout_marginTop="8dp"
+        android:background="#F8F9FA"
         android:padding="8dp"
         android:text="Tipo"
-        android:textColor="#F8F5F5"
+        android:textColor="#8C8787"
         app:layout_constraintStart_toEndOf="@+id/textViewNombre_"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,21 +34,23 @@
         android:id="@+id/textView_edit"
         android:layout_width="68dp"
         android:layout_height="34dp"
-        android:background="#03A9F4"
+        android:layout_marginTop="8dp"
+        android:background="#F8F9FA"
         android:padding="8dp"
         android:text="Edit"
-        android:textColor="#F8F5F5"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="281dp" />
+        android:textColor="#8C8787"
+        app:layout_constraintStart_toEndOf="@+id/textViewTipo"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_elim"
         android:layout_width="67dp"
         android:layout_height="32dp"
-        android:background="#03A9F4"
+        android:layout_marginTop="8dp"
+        android:background="#F8F9FA"
         android:padding="8dp"
         android:text="Elim"
-        android:textColor="#FBF7F7"
+        android:textColor="#8C8787"
         app:layout_constraintStart_toEndOf="@+id/textView_edit"
         app:layout_constraintTop_toTopOf="parent" />
 

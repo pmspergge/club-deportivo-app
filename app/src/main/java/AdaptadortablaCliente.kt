@@ -6,23 +6,38 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.clubdeportivo.R
 
-class AdaptadorTablaCliente(private val context: Context, private val datos: List<DatosTablaClientes>) : RecyclerView.Adapter<AdaptadorTablaCliente.ViewHolder>() {
+class AdaptadorTablaCliente(
+    private val context: Context,
+    private val datos: List<DatosTablaClientes>,
+    private val itemClickListener: OnItemClickListener
+) : RecyclerView.Adapter<AdaptadorTablaCliente.ViewHolder>() {
 
-    // ViewHolder para mantener las referencias a las vistas de cada fila de la tabla
+    interface OnItemClickListener {
+        fun onEditClick(position: Int)
+        fun onDeleteClick(position: Int)
+    }
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textViewNombre: TextView = itemView.findViewById(R.id.textViewNombre_)
         val textViewTipo: TextView = itemView.findViewById(R.id.textViewTipo)
         val textViewEdit: TextView = itemView.findViewById(R.id.textView_edit)
         val textViewElim: TextView = itemView.findViewById(R.id.textView_elim)
+
+        init {
+            textViewEdit.setOnClickListener {
+                itemClickListener.onEditClick(adapterPosition)
+            }
+            textViewElim.setOnClickListener {
+                itemClickListener.onDeleteClick(adapterPosition)
+            }
+        }
     }
 
-    // Método que crea una nueva vista para cada fila de la tabla
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val vista = LayoutInflater.from(context).inflate(R.layout.fila_tabla_cliente, parent, false)
         return ViewHolder(vista)
     }
 
-    // Método que reemplaza el contenido de una vista
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val dato = datos[position]
         holder.textViewNombre.text = dato.nombre
@@ -31,8 +46,8 @@ class AdaptadorTablaCliente(private val context: Context, private val datos: Lis
         holder.textViewElim.text = dato.elim
     }
 
-    // Método que devuelve el número total de filas de la tabla
     override fun getItemCount(): Int {
         return datos.size
     }
 }
+

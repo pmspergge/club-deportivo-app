@@ -36,7 +36,7 @@ class HomeAdmin : AppCompatActivity() {
         }
 
         val myButton4 = findViewById<Button>(R.id.button_configuracion)
-        myButton2.setOnClickListener {
+        myButton4.setOnClickListener {
             val intent4 = Intent(this, Ver_Clientes::class.java)
             startActivity(intent4)
         }
