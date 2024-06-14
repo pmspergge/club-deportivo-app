@@ -2,6 +2,7 @@ package com.example.clubdeportivo
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
@@ -22,13 +23,11 @@ class Editar_Cliente : AppCompatActivity() {
 
         val myButton2 = findViewById<ImageButton>(R.id.button_registrar_clie_volver)
         myButton2.setOnClickListener {
-            // Aquí es donde inicias la nueva actividad
             val intent = Intent(this, Menu::class.java)
             startActivity(intent)
         }
         val myButton4 = findViewById<Button>(R.id.button3)
         myButton4.setOnClickListener {
-            // Aquí es donde inicias la nueva actividad
             val intent = Intent(this, Menu::class.java)
             startActivity(intent)
         }

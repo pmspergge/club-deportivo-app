@@ -7,6 +7,7 @@ import DatosTabla
 import DatosTablaClientes
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
@@ -30,7 +31,6 @@ class Ver_Clientes : AppCompatActivity() {
 
         val myButton = findViewById<ImageButton>(R.id.button_volver2)
         myButton.setOnClickListener {
-            // Aquí es donde inicias la nueva actividad
             val intent = Intent(this, Menu::class.java)
             startActivity(intent)
         }
@@ -39,7 +39,6 @@ class Ver_Clientes : AppCompatActivity() {
 
         val myButton2 = findViewById<Button>(R.id.button4)
         myButton2.setOnClickListener {
-            // Aquí es donde inicias la nueva actividad
             val intent = Intent(this, Menu::class.java)
             startActivity(intent)
         }
@@ -48,38 +47,27 @@ class Ver_Clientes : AppCompatActivity() {
 
         val myButton3: RecyclerView = findViewById(R.id.tablaClientes)
         myButton3.setOnClickListener {
-            // Aquí es donde inicias la nueva actividad
             val intent = Intent(this, Editar_Cliente::class.java)
             startActivity(intent)
         }
 
 
-
-        // Obtener una referencia al RecyclerView desde el diseño
         val recyclerView: RecyclerView = findViewById(R.id.tablaClientes)
 
-        // Crear una lista de datos para la tabla (supongamos que tienes una lista llamada datosTabla)
         val DatosTablaClientes = obtenerDatosTabla()
 
-        // Crear una instancia del adaptador y pasarle la lista de datos
-        //val adaptador = AdaptadorTablaCliente(this, DatosTablaClientes)
         val adaptador = AdaptadorTablaCliente(this, DatosTablaClientes)
 
-        // Configurar RecyclerView con un LinearLayoutManager (vertical)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Asignar el adaptador al RecyclerView
         recyclerView.adapter = adaptador
 
     }
 
     private fun obtenerDatosTabla(): List<DatosTablaClientes> {
-        // Aquí puedes retornar una lista de datos para tu tabla
-        // Por ejemplo, podrías consultar una base de datos o crear datos de muestra manualmente
         return listOf(
             DatosTablaClientes("Pedro Sanchez","32.456.567","✏","❌"),
             DatosTablaClientes("Julieta Ibañez","45.345.234","✏\uFE0F","❌"),
-            // Agrega más datos según sea necesario
         )
     }
     }

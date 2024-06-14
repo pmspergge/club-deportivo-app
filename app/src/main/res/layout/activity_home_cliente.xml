@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/loginlogo" />
+
+    <TextView
+        android:id="@+id/tvProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivLogo"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:text="Perfil cliente"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvProfile"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        android:text="username"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tvDireccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvUsername"
+        android:layout_marginTop="4dp"
+        android:layout_centerHorizontal="true"
+        android:text="Dirección"
+        android:textSize="16sp"
+        android:textColor="@color/black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDireccion"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnCredenciales"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Credenciales"
+            android:drawablePadding="8dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/buttonLogin"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btnHistorialPagos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Historial de pagos"
+            android:drawablePadding="8dp"
+            android:backgroundTint="@color/buttonLogin"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -30,7 +30,8 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/tablaMorosos"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="60dp" />
+        tools:layout_editor_absoluteX="60dp"
+        tools:ignore="MissingConstraints" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tablaMorosos"

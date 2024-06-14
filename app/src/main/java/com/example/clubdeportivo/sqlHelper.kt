@@ -113,4 +113,16 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         db.close()
         return exists
     }
+
+    @SuppressLint("Range", "Recycle")
+    fun getUserType(username: String, password: String): String? {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT admin FROM persona WHERE usuario = ? AND contrasena = ?", arrayOf(username, password))
+        return if (cursor.moveToFirst()) {
+            if (cursor.getInt(cursor.getColumnIndex("admin")) == 1) "admin" else "cliente"
+        } else {
+            null
+        }
+    }
+
 }

@@ -2,45 +2,45 @@ package com.example.clubdeportivo
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import android.util.Log
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
-//noinspection UsingMaterialAndMaterial3Libraries
-import androidx.compose.material.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.unit.dp
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.content.ContextCompat.startActivity
-import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import android.widget.Button
+import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var dbHelper: SqlHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("MainActivity", "onCreate ejecutado")
-        val dbHelper = SqlHelper(this)
+        setContentView(R.layout.activity_main)
+
+        dbHelper = SqlHelper(this)
         initializeDatabase(dbHelper)
 
-        // Verificar que los datos se han insertado correctamente
-        val users = dbHelper.getAllUsers()
-        for (user in users) {
-            Log.d("MainActivity", "Usuario: ${user["nombre"]} ${user["apellido"]}, Usuario: ${user["usuario"]}")
-        }
-        setContent {
-            ClubDeportivoNavHost()
+        val buttonLogin = findViewById<Button>(R.id.button_login)
+        val editTextUsername = findViewById<EditText>(R.id.name)
+        val editTextPassword = findViewById<EditText>(R.id.password)
+
+        buttonLogin.setOnClickListener {
+            val username = editTextUsername.text.toString()
+            val password = editTextPassword.text.toString()
+
+            if (username.isNotBlank() && password.isNotBlank()) {
+                val userType = dbHelper.getUserType(username, password)
+                if (userType != null) {
+                    if (userType == "admin") {
+                        val intent = Intent(this, HomeAdmin::class.java)
+                        startActivity(intent)
+                    } else {
+                        // Lógica para navegar a la pantalla de cliente cuando esté disponible
+                    }
+                } else {
+                    Log.d("MainActivity", "Usuario o contraseña incorrectos.")
+                }
+            } else {
+                Log.d("MainActivity", "Por favor, ingresa ambos campos.")
+            }
         }
     }
 
@@ -65,76 +65,5 @@ class MainActivity : ComponentActivity() {
     private fun navigateToActivity(activityClass: Class<*>) {
         val intent = Intent(this, activityClass)
         startActivity(intent)
-    }
-}
-
-@Composable
-fun ClubDeportivoNavHost() {
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "login") {
-        composable("login") {
-            ClubDeportivoApp(navController)
-        }
-        composable("home") {
-            HomeScreen()
-        }
-    }
-}
-
-@Composable
-fun ClubDeportivoApp(navController: NavController) {
-    val context = LocalContext.current
-    val dbHelper = SqlHelper(context)
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var showMessage by remember { mutableStateOf(false) }
-    var messageText by remember { mutableStateOf("") }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        TextField(
-            value = username,
-            onValueChange = { username = it },
-            label = { Text("Username") }
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        TextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password") },
-            visualTransformation = PasswordVisualTransformation()
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = {
-            if (username.isNotBlank() && password.isNotBlank()) {
-                if (dbHelper.getUser(username, password)) {
-                    navController.navigate("home") // Navega a la pantalla Home
-                } else {
-                    messageText = "Usuario o contraseña incorrectos."
-                    showMessage = true
-                }
-            } else {
-                messageText = "Por favor, ingresa ambos campos."
-                showMessage = true
-            }
-        }) {
-            Text("Login")
-        }
-        if (showMessage) {
-            Text(text = messageText, color = MaterialTheme.colors.error)
-        }
-    }
-}
-
-@Preview("Home screen")
-@Composable
-fun HomeScreen() {
-    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-        Text("Bienvenido al Club Deportivo")
     }
 }

@@ -12,7 +12,7 @@ class registrar_cliente : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_registrar_cliente2)
+        setContentView(R.layout.activity_registrar_cliente)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -20,8 +20,7 @@ class registrar_cliente : AppCompatActivity() {
         }
         val myButton = findViewById<ImageButton>(R.id.button_registrar_clie_volver)
         myButton.setOnClickListener {
-            // Aquí es donde inicias la nueva actividad
-            val intent = Intent(this, Menu::class.java)
+            val intent = Intent(this, HomeAdmin::class.java)
             startActivity(intent)
         }
     }

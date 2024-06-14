@@ -22,8 +22,7 @@ class Pagar_cuota_socio : AppCompatActivity() {
 
         val myButton = findViewById<ImageButton>(R.id.pagar_cuota_volver)
         myButton.setOnClickListener {
-            // Aquí es donde inicias la nueva actividad
-            val intent = Intent(this, Menu::class.java)
+            val intent = Intent(this, HomeAdmin::class.java)
             startActivity(intent)
         }
     }
