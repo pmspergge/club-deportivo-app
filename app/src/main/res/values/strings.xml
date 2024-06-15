@@ -45,4 +45,14 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+
+    <string name="pagar_cuota_socio">Pagar cuota socio</string>
+    <string name="nro_socio">Nro socio</string>
+    <string name="dni">DNI</string>
+    <string name="nro_cuota">Nro cuota</string>
+    <string name="periodo">Periodo</string>
+    <string name="monto">Monto</string>
+    <string name="pagar">Pagar</string>
+    <string name="error_message">Some data entered is incorrect, please try again.</string>
+    <string name="back_button">Back</string>
 </resources>
