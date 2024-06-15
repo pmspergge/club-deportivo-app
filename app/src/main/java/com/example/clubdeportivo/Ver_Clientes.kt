@@ -1,9 +1,6 @@
 package com.example.clubdeportivo
 
-import androidx.activity.enableEdgeToEdge
-import AdaptadorTabla
 import AdaptadorTablaCliente
-import DatosTabla
 import DatosTablaClientes
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +8,7 @@ import android.view.Menu
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -53,7 +51,32 @@ class Ver_Clientes : AppCompatActivity(), AdaptadorTablaCliente.OnItemClickListe
     }
 
     override fun onDeleteClick(position: Int) {
-        // Handle delete click
+        showDeleteConfirmationDialog()
+    }
+
+    private fun showDeleteConfirmationDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.modal_borrar_cliente, null)
+        val dialogBuilder = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .create()
+
+        val btnCancel: Button = dialogView.findViewById(R.id.btnCancel)
+        val btnDelete: Button = dialogView.findViewById(R.id.btnDelete)
+
+        btnCancel.setOnClickListener {
+            dialogBuilder.dismiss()
+        }
+
+        btnDelete.setOnClickListener {
+            deleteClient()
+            dialogBuilder.dismiss()
+        }
+
+        dialogBuilder.show()
+    }
+
+    private fun deleteClient() {
+        // Lógica para eliminar el cliente
     }
 
     private fun obtenerDatosTabla(): List<DatosTablaClientes> {
