@@ -7,74 +7,81 @@
     android:layout_height="match_parent"
     tools:context=".HomeAdmin">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
+        android:fontFamily="sans-serif-black"
+        android:text="Menú"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#193676"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        tools:ignore="MissingConstraints" />
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="643dp"
-        android:dividerPadding="4sp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/textView"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         tools:ignore="MissingConstraints">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="Menú principal"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textSize="24sp" />
 
         <Button
             android:id="@+id/button_agregar_cliente"
-            android:layout_width="416dp"
-            android:layout_height="68dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#193676"
             android:text="Agregar Cliente"
             android:textAlignment="center"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textColorLink="@color/buttonLogin"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:typeface="normal" />
 
         <Button
             android:id="@+id/button_Cobrar_cuota"
-            android:layout_width="417dp"
-            android:layout_height="71dp"
-            android:layout_marginBottom="20dp"
-            android:text="Cobrar cuota"
-            android:textAllCaps="true"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#193676"
+            android:text="Pagar cuota"
+            android:textAllCaps="false"
             android:textSize="20sp" />
 
         <Button
             android:id="@+id/button_cuotas_que_vencen_hoy"
-            android:layout_width="413dp"
-            android:layout_height="75dp"
-            android:layout_marginBottom="20dp"
-            android:text="Cuotas que vencen hoy"
-            android:textAllCaps="true"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#193676"
+            android:text="Ver cuotas que vencen hoy"
+            android:textAllCaps="false"
             android:textSize="20sp" />
 
         <Button
             android:id="@+id/button_configuracion"
-            android:layout_width="407dp"
-            android:layout_height="72dp"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#193676"
             android:text="Ver Clientes"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textSize="20sp" />
 
     </LinearLayout>
