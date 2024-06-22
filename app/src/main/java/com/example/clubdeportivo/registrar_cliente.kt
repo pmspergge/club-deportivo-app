@@ -2,6 +2,7 @@ package com.example.clubdeportivo
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -23,5 +24,23 @@ class registrar_cliente : AppCompatActivity() {
             val intent = Intent(this, HomeAdmin::class.java)
             startActivity(intent)
         }
+        val myButton2 = findViewById<Button>(R.id.button)
+        myButton2.setOnClickListener {
+            val dbHelper = SqlHelper(this);
+            dbHelper.insertPersona("John",
+                "Doe",
+                "123 Main St",
+                "123456789",
+                "19900101",
+                1,
+                1,
+                0,
+                "johndoe",
+                "password123");
+        }
+
+
+
+
     }
 }

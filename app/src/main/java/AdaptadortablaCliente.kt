@@ -18,10 +18,11 @@ class AdaptadorTablaCliente(
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textViewNombre: TextView = itemView.findViewById(R.id.textViewNombre_)
+        val textViewNombre: TextView = itemView.findViewById(R.id.textViewNombre)
         val textViewTipo: TextView = itemView.findViewById(R.id.textViewTipo)
         val textViewEdit: TextView = itemView.findViewById(R.id.textView_edit)
         val textViewElim: TextView = itemView.findViewById(R.id.textView_elim)
+        val textViewDni: TextView = itemView.findViewById(R.id.textViewdni)
 
         init {
             textViewEdit.setOnClickListener {
@@ -40,6 +41,7 @@ class AdaptadorTablaCliente(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val dato = datos[position]
+        holder.textViewDni.text = dato.dni
         holder.textViewNombre.text = dato.nombre
         holder.textViewTipo.text = dato.tipo
         holder.textViewEdit.text = dato.edit

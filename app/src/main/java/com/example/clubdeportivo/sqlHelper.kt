@@ -1,10 +1,14 @@
 package com.example.clubdeportivo
-
+import android.database.Cursor
 import android.annotation.SuppressLint
+import android.util.Log
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db", null, 1) {
     override fun onCreate(db: SQLiteDatabase) {
@@ -65,9 +69,83 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
 
         val db = this.writableDatabase
         db.insert("persona", null, values)
+
         db.close()
     }
 
+    fun truncatePersonaTable() {
+        val db = this.writableDatabase
+        db.execSQL("DELETE FROM Persona")
+        db.close()
+    }
+
+    @SuppressLint("Range")
+    fun retrieveCuotasByFechaVencimiento(): List<Cuota> {
+        val cuotas = mutableListOf<Cuota>()
+        val db = readableDatabase
+
+        // Get today's date in yyyy-MM-dd format
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val todayDate = dateFormat.format(Date())
+
+        // Query cuotas where fecha_vencimiento equals today's date
+        val cursor: Cursor? = db.rawQuery("SELECT * FROM cuota INNER JOIN Persona ON cuota.persona_id = Persona.id WHERE fecha_vencimiento = ?", arrayOf(todayDate))
+
+        cursor?.use {
+            while (it.moveToNext()) {
+                val id = it.getInt(it.getColumnIndex("id"))
+                val personaId = it.getInt(it.getColumnIndex("persona_id"))
+                val mesDia = it.getString(it.getColumnIndex("mes_dia"))
+                val tipo = it.getString(it.getColumnIndex("tipo"))
+                val fechaPago = it.getString(it.getColumnIndex("fecha_pago"))
+                val periodo = it.getString(it.getColumnIndex("periodo"))
+                val numeroCuota = it.getInt(it.getColumnIndex("numero_cuota"))
+                val monto = it.getDouble(it.getColumnIndex("monto"))
+                val fechaVencimiento = it.getString(it.getColumnIndex("fecha_vencimiento"))
+                val personaNombre = it.getString(it.getColumnIndex("nombre"))
+
+                val cuota = Cuota(id, personaId, mesDia, tipo, fechaPago, periodo, numeroCuota, monto, fechaVencimiento,personaNombre)
+                cuotas.add(cuota)
+            }
+        }
+
+        db.close()
+        return cuotas
+    }
+
+    fun getAllPersonas(): List<Persona> {
+        val personas = mutableListOf<Persona>()
+        val db = this.readableDatabase
+        val query = "SELECT * FROM Persona"
+        val cursor: Cursor = db.rawQuery(query, null)
+
+        cursor.use {
+            if (it.moveToFirst()) {
+                do {
+                    val id = it.getInt(it.getColumnIndexOrThrow("id"))
+                    val nombre = it.getString(it.getColumnIndexOrThrow("nombre"))
+                    val apellido = it.getString(it.getColumnIndexOrThrow("apellido"))
+                    val direccion = it.getString(it.getColumnIndexOrThrow("direccion"))
+                    val dni = it.getString(it.getColumnIndexOrThrow("dni"))
+                    val fechaNacimiento = it.getString(it.getColumnIndexOrThrow("fecha_nacimiento"))
+                    val aptoFisico = it.getInt(it.getColumnIndexOrThrow("apto_fisico"))
+                    val socio = it.getInt(it.getColumnIndexOrThrow("socio"))
+                    val admin = it.getInt(it.getColumnIndexOrThrow("admin"))
+                    val usuario = it.getString(it.getColumnIndexOrThrow("usuario"))
+                    val contrasena = it.getString(it.getColumnIndexOrThrow("contrasena"))
+
+                    val persona = Persona(
+                        id, nombre, apellido, direccion, dni, fechaNacimiento, aptoFisico, socio, admin, usuario, contrasena
+                    )
+                    personas.add(persona)
+                } while (it.moveToNext())
+            }
+        }
+
+        cursor.close()
+        db.close()
+        return personas
+    }
     fun insertCuota(personaId: Int, mesDia: String, tipo: String, fechaPago: String, periodo: String, numeroCuota: Int, monto: Double, fechaVencimiento: String) {
         val values = ContentValues()
         values.put("persona_id", personaId)
@@ -123,6 +201,39 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         } else {
             null
         }
+    }
+
+
+    @SuppressLint("Range")
+    fun printPersonaTable() {
+        val db = this.readableDatabase
+        val query = "SELECT * FROM Persona"
+        val cursor: Cursor? = db.rawQuery(query, null)
+
+        cursor?.use {
+            if (it.moveToFirst()) {
+                do {
+                    val id = it.getInt(it.getColumnIndex("id"))
+                    val nombre = it.getString(it.getColumnIndex("nombre"))
+                    val apellido = it.getString(it.getColumnIndex("apellido"))
+                    val direccion = it.getString(it.getColumnIndex("direccion"))
+                    val dni = it.getString(it.getColumnIndex("dni"))
+                    val fechaNacimiento = it.getString(it.getColumnIndex("fecha_nacimiento"))
+                    val aptoFisico = it.getInt(it.getColumnIndex("apto_fisico"))
+                    val socio = it.getInt(it.getColumnIndex("socio"))
+                    val admin = it.getInt(it.getColumnIndex("admin"))
+                    val usuario = it.getString(it.getColumnIndex("usuario"))
+                    val contrasena = it.getString(it.getColumnIndex("contrasena"))
+
+                    Log.d("Persona", "ID: $id, Nombre: $nombre, Apellido: $apellido, Direccion: $direccion, " +
+                            "DNI: $dni, Fecha Nacimiento: $fechaNacimiento, Apto Físico: $aptoFisico, " +
+                            "Socio: $socio, Admin: $admin, Usuario: $usuario, Contraseña: $contrasena")
+                } while (it.moveToNext())
+            }
+        }
+
+        cursor?.close()
+        db.close()
     }
 
 }

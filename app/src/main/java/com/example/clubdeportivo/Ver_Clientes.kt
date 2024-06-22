@@ -4,9 +4,12 @@ import AdaptadorTablaCliente
 import DatosTablaClientes
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -80,9 +83,25 @@ class Ver_Clientes : AppCompatActivity(), AdaptadorTablaCliente.OnItemClickListe
     }
 
     private fun obtenerDatosTabla(): List<DatosTablaClientes> {
-        return listOf(
-            DatosTablaClientes("Pedro Sanchez", "Socio", "✏\uFE0F", "❌"),
-            DatosTablaClientes("Julieta Ibañez", "No Socio", "✏\uFE0F", "❌")
-        )
+        val dbHelper = SqlHelper(this);
+        //dbHelper.truncatePersonaTable();
+        dbHelper.insertPersona("John",
+            "Doe",
+            "123 Main St",
+            "123456789",
+            "19900101",
+            1,
+            1,
+            0,
+            "johndoe",
+            "password123");
+        val personas: List<Persona> = dbHelper.getAllPersonas()
+        val datos = mutableListOf<DatosTablaClientes>();
+        for (persona in personas) {
+            Log.d("",persona.id.toString() + "---" + persona.nombre)
+            datos.add(DatosTablaClientes(persona.dni, persona.nombre, persona.socio.toString(), "✏\uFE0F", "❌"));
+        }
+        return datos;
+
     }
 }

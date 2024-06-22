@@ -52,9 +52,37 @@ class Ver_morosos : AppCompatActivity() {
     }
 
     private fun obtenerDatosTabla(): List<DatosTabla> {
-        return listOf(
-            DatosTabla("Pedro Sanchez", "5.000$"),
-            DatosTabla("Julieta Ibañez", "8.000$"),
-        )
+
+        val dbHelper = SqlHelper(this);
+
+
+// Example usage to insert a Cuota
+        dbHelper.insertCuota(
+            personaId = 48006,
+            mesDia = "June 22",
+            tipo = "Socio",
+            fechaPago = "2024-06-21",
+            periodo = "Mes",
+            numeroCuota = 1,
+            monto = 100.0,
+            fechaVencimiento = "2024-06-22");
+        dbHelper.insertCuota(
+            personaId = 47999,
+            mesDia = "June 22",
+            tipo = "Socio",
+            fechaPago = "2024-06-21",
+            periodo = "Mes",
+            numeroCuota = 1,
+            monto = 1000.0,
+            fechaVencimiento = "2024-06-22");
+
+        //dbHelper.truncatePersonaTable();
+        val Cuotas: List<Cuota> = dbHelper.retrieveCuotasByFechaVencimiento();
+        val datos = mutableListOf<DatosTabla>();
+        for (cuota in Cuotas) {
+            //println(persona)
+            datos.add(DatosTabla(cuota.personaNombre, cuota.monto.toString()));
+        }
+        return datos;
     }
 }

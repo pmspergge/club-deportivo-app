@@ -6,16 +6,15 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/textViewNombre_"
-        android:layout_width="197dp"
-        android:layout_height="34dp"
+        android:id="@+id/textViewNombre"
+        android:layout_width="104dp"
+        android:layout_height="32dp"
         android:layout_marginTop="8dp"
         android:background="#F8F9FA"
         android:padding="8dp"
         android:text="Nombre"
         android:textColor="#8C8787"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -27,7 +26,7 @@
         android:padding="8dp"
         android:text="Tipo"
         android:textColor="#8C8787"
-        app:layout_constraintStart_toEndOf="@+id/textViewNombre_"
+        app:layout_constraintStart_toEndOf="@+id/textViewdni"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -44,14 +43,25 @@
 
     <TextView
         android:id="@+id/textView_elim"
-        android:layout_width="67dp"
-        android:layout_height="32dp"
+        android:layout_width="83dp"
+        android:layout_height="33dp"
         android:layout_marginTop="8dp"
         android:background="#F8F9FA"
         android:padding="8dp"
         android:text="Elim"
         android:textColor="#8C8787"
         app:layout_constraintStart_toEndOf="@+id/textView_edit"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewdni"
+        android:layout_width="67dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:text="dni"
+        android:textColor="#8C8787"
+        app:layout_constraintStart_toEndOf="@+id/textViewNombre"
         app:layout_constraintTop_toTopOf="parent" />
 
 
