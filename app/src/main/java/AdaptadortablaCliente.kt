@@ -8,7 +8,7 @@ import com.example.clubdeportivo.R
 
 class AdaptadorTablaCliente(
     private val context: Context,
-    private val datos: List<DatosTablaClientes>,
+    private var datos: List<DatosTablaClientes>,
     private val itemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<AdaptadorTablaCliente.ViewHolder>() {
 
@@ -50,6 +50,11 @@ class AdaptadorTablaCliente(
 
     override fun getItemCount(): Int {
         return datos.size
+    }
+
+    fun updateData(newData: List<DatosTablaClientes>) {
+        datos = newData
+        notifyDataSetChanged()
     }
 }
 

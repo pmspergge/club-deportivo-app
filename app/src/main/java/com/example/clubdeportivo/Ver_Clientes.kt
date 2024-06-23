@@ -6,10 +6,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -54,10 +52,10 @@ class Ver_Clientes : AppCompatActivity(), AdaptadorTablaCliente.OnItemClickListe
     }
 
     override fun onDeleteClick(position: Int) {
-        showDeleteConfirmationDialog()
+        showDeleteConfirmationDialog(position)
     }
 
-    private fun showDeleteConfirmationDialog() {
+    private fun showDeleteConfirmationDialog(position: Int) {
         val dialogView = layoutInflater.inflate(R.layout.modal_borrar_cliente, null)
         val dialogBuilder = AlertDialog.Builder(this)
             .setView(dialogView)
@@ -71,37 +69,33 @@ class Ver_Clientes : AppCompatActivity(), AdaptadorTablaCliente.OnItemClickListe
         }
 
         btnDelete.setOnClickListener {
-            deleteClient()
+            deleteClient(position)
             dialogBuilder.dismiss()
         }
 
         dialogBuilder.show()
     }
 
-    private fun deleteClient() {
-        // Lógica para eliminar el cliente
+    private fun deleteClient(position: Int) {
+        val dbHelper = SqlHelper(this)
+        val datosTablaClientes = obtenerDatosTabla()
+        val clienteAEliminar = datosTablaClientes[position]
+
+        dbHelper.deletePersona(clienteAEliminar.dni)
+
+        val nuevosDatosTablaClientes = obtenerDatosTabla()
+        val adaptador = findViewById<RecyclerView>(R.id.tablaClientes).adapter as AdaptadorTablaCliente
+        adaptador.updateData(nuevosDatosTablaClientes)
     }
 
     private fun obtenerDatosTabla(): List<DatosTablaClientes> {
-        val dbHelper = SqlHelper(this);
-        //dbHelper.truncatePersonaTable();
-        dbHelper.insertPersona("John",
-            "Doe",
-            "123 Main St",
-            "123456789",
-            "19900101",
-            1,
-            1,
-            0,
-            "johndoe",
-            "password123");
+        val dbHelper = SqlHelper(this)
         val personas: List<Persona> = dbHelper.getAllPersonas()
-        val datos = mutableListOf<DatosTablaClientes>();
+        val datos = mutableListOf<DatosTablaClientes>()
         for (persona in personas) {
-            Log.d("",persona.id.toString() + "---" + persona.nombre)
-            datos.add(DatosTablaClientes(persona.dni, persona.nombre, persona.socio.toString(), "✏\uFE0F", "❌"));
+            Log.d("", persona.id.toString() + "---" + persona.nombre)
+            datos.add(DatosTablaClientes(persona.dni, persona.nombre, persona.socio.toString(), "✏\uFE0F", "❌"))
         }
-        return datos;
-
+        return datos
     }
 }

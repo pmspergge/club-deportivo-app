@@ -69,7 +69,6 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
 
         val db = this.writableDatabase
         db.insert("persona", null, values)
-
         db.close()
     }
 
@@ -116,8 +115,8 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
     fun getAllPersonas(): List<Persona> {
         val personas = mutableListOf<Persona>()
         val db = this.readableDatabase
-        val query = "SELECT * FROM Persona"
-        val cursor: Cursor = db.rawQuery(query, null)
+        val query = "SELECT * FROM persona"
+        val cursor = db.rawQuery(query, null)
 
         cursor.use {
             if (it.moveToFirst()) {
@@ -161,6 +160,13 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         db.insert("cuota", null, values)
         db.close()
     }
+
+    fun deletePersona(dni: String) {
+        val db = this.writableDatabase
+        db.delete("persona", "dni=?", arrayOf(dni))
+        db.close()
+    }
+
 
     @SuppressLint("Range")
     fun getAllUsers(): List<Map<String, String>> {
