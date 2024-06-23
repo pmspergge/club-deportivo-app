@@ -11,8 +11,8 @@
 
     <ImageButton
         android:id="@+id/button_registrar_clie_volver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Registrar cliente"
+        android:text="@string/register_client"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/buttonLogin"
@@ -48,11 +48,11 @@
         app:layout_constraintTop_toBottomOf="@id/textView3">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText"
+            android:id="@+id/textInputEditTextNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/nro_socio"
-            android:contentDescription="@string/nro_socio"/>
+            android:hint="@string/name"
+            android:contentDescription="@string/name"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -67,11 +67,11 @@
         app:layout_constraintTop_toBottomOf="@id/textInputLayoutNombre">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText2"
+            android:id="@+id/textInputEditTextApellido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dni"
-            android:contentDescription="@string/dni"/>
+            android:hint="@string/last_name"
+            android:contentDescription="@string/last_name"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -86,11 +86,11 @@
         app:layout_constraintTop_toBottomOf="@id/textInputLayoutApellido">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText3"
+            android:id="@+id/textInputEditTextDireccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/periodo"
-            android:contentDescription="@string/periodo"/>
+            android:hint="@string/address"
+            android:contentDescription="@string/address"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -105,7 +105,7 @@
         app:layout_constraintTop_toBottomOf="@id/textInputLayoutDireccion">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText4"
+            android:id="@+id/textInputEditTextDNI"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/dni"
@@ -124,11 +124,11 @@
         app:layout_constraintTop_toBottomOf="@id/textInputLayoutDNI">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText5"
+            android:id="@+id/textInputEditTextFechaNacimiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/periodo"
-            android:contentDescription="@string/periodo"/>
+            android:hint="@string/date_of_birth"
+            android:contentDescription="@string/date_of_birth"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
@@ -136,7 +136,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Tiene apto físico"
+        android:text="@string/has_physical_aptitude"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="32dp"
         app:layout_constraintTop_toBottomOf="@id/textInputLayoutFechaNacimiento" />
@@ -146,7 +146,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Es socio"
+        android:text="@string/is_member"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="32dp"
         app:layout_constraintTop_toBottomOf="@id/checkBox" />
@@ -174,7 +174,7 @@
         android:text="@string/register"
         android:textColor="@color/white"
         android:backgroundTint="@color/buttonLogin"
-        app:layout_constraintTop_toBottomOf="@+id/tvError"
+        app:layout_constraintTop_toBottomOf="@id/tvError"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
