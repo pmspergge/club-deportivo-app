@@ -29,13 +29,13 @@
         android:id="@+id/textView2"
         android:layout_width="342dp"
         android:layout_height="34dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:text="Cuotas que vencen hoy"
         android:textAlignment="center"
         android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/button_volver"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="60dp" />
+        tools:ignore="MissingConstraints" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tablaMorosos"
@@ -48,12 +48,16 @@
 
     <ImageButton
         android:id="@+id/button_volver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="47dp"
+        android:layout_height="47dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="342dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="?attr/actionModeCloseDrawable" />
