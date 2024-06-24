@@ -5,6 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollIndicators="top|bottom"
+    android:scrollbarAlwaysDrawHorizontalTrack="true"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbarSize="8dp"
+    android:scrollbarStyle="insideInset"
+    android:scrollbars="vertical"
     tools:context=".Ver_morosos">
 
     <Button
