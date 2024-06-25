@@ -30,6 +30,7 @@ class registrar_cliente : AppCompatActivity() {
         val registerButton = findViewById<Button>(R.id.button)
         registerButton.setOnClickListener {
             val dbHelper = SqlHelper(this)
+            val db = dbHelper.writableDatabase
             val nombre = findViewById<TextInputEditText>(R.id.textInputEditTextNombre).text.toString()
             val apellido = findViewById<TextInputEditText>(R.id.textInputEditTextApellido).text.toString()
             val direccion = findViewById<TextInputEditText>(R.id.textInputEditTextDireccion).text.toString()
@@ -38,7 +39,8 @@ class registrar_cliente : AppCompatActivity() {
             val aptoFisico = if (findViewById<CheckBox>(R.id.checkBox).isChecked) 1 else 0
             val socio = if (findViewById<CheckBox>(R.id.checkBox2).isChecked) 1 else 0
 
-            dbHelper.insertPersona(nombre, apellido, direccion, dni, fechaNacimiento, aptoFisico, socio, 0, "defaultUser", "defaultPassword")
+            dbHelper.insertPersona(db, nombre, apellido, direccion, dni, fechaNacimiento, aptoFisico, socio, 0, "defaultUser", "defaultPassword")
+            db.close()
         }
     }
 }

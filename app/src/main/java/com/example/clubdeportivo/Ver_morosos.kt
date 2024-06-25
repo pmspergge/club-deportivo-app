@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class Ver_morosos : AppCompatActivity() {
+class Ver_Morosos : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,7 +24,6 @@ class Ver_morosos : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
 
         val myButton = findViewById<ImageButton>(R.id.button_volver)
         myButton.setOnClickListener {
@@ -38,7 +37,6 @@ class Ver_morosos : AppCompatActivity() {
             startActivity(intent)
         }
 
-
         val recyclerView: RecyclerView = findViewById(R.id.tablaMorosos)
 
         val datosTabla = obtenerDatosTabla()
@@ -48,41 +46,21 @@ class Ver_morosos : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         recyclerView.adapter = adaptador
-
     }
 
     private fun obtenerDatosTabla(): List<DatosTabla> {
+        val dbHelper = SqlHelper(this)
 
-        val dbHelper = SqlHelper(this);
+        // Example usage to insert a Cuota
+        val db = dbHelper.writableDatabase
+        dbHelper.insertCuota(db, 1, "June 22", "Socio", "2024-06-21", "Mes", 1, 100.0, "2024-06-22")
+        dbHelper.insertCuota(db, 2, "June 22", "Socio", "2024-06-21", "Mes", 1, 1000.0, "2024-06-22")
 
-
-// Example usage to insert a Cuota
-        dbHelper.insertCuota(
-            personaId = 48006,
-            mesDia = "June 22",
-            tipo = "Socio",
-            fechaPago = "2024-06-21",
-            periodo = "Mes",
-            numeroCuota = 1,
-            monto = 100.0,
-            fechaVencimiento = "2024-06-22");
-        dbHelper.insertCuota(
-            personaId = 47999,
-            mesDia = "June 22",
-            tipo = "Socio",
-            fechaPago = "2024-06-21",
-            periodo = "Mes",
-            numeroCuota = 1,
-            monto = 1000.0,
-            fechaVencimiento = "2024-06-22");
-
-        //dbHelper.truncatePersonaTable();
-        val Cuotas: List<Cuota> = dbHelper.retrieveCuotasByFechaVencimiento();
-        val datos = mutableListOf<DatosTabla>();
-        for (cuota in Cuotas) {
-            //println(persona)
-            datos.add(DatosTabla(cuota.personaNombre, cuota.monto.toString()));
+        val cuotas: List<Cuota> = dbHelper.retrieveCuotasByFechaVencimiento()
+        val datos = mutableListOf<DatosTabla>()
+        for (cuota in cuotas) {
+            datos.add(DatosTabla(cuota.personaNombre, cuota.monto.toString()))
         }
-        return datos;
+        return datos
     }
 }

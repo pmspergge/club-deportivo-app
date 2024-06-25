@@ -20,7 +20,7 @@ class HomeAdmin : AppCompatActivity() {
         }
         val myButton = findViewById<Button>(R.id.button_cuotas_que_vencen_hoy)
         myButton.setOnClickListener {
-            val intent = Intent(this, Ver_morosos::class.java)
+            val intent = Intent(this, Ver_Morosos::class.java)
             startActivity(intent)
         }
         val myButton2 = findViewById<Button>(R.id.button_agregar_cliente)
