@@ -56,7 +56,8 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         }
     }
 
-    fun insertInitialData(db: SQLiteDatabase) {
+    private fun insertInitialData(db: SQLiteDatabase) {
+        insertPersona(db, "Admin2", "Admin2", "Admin Address2", "123456782", "1970-01-02", 1, 1, 1, "adminUser", "adminPassword")
         insertPersona(db, "Admin", "Admin", "Admin Address", "12345678", "1970-01-01", 1, 1, 1, "admin", "admin123")
         insertPersona(db, "Juan", "Perez", "Calle Falsa 123", "87654321", "1980-01-01", 1, 1, 0, "juan", "juan123")
         insertPersona(db, "ClienteSocio", "Perez", "Calle Real 456", "11223344", "1990-05-15", 1, 1, 0, "clienteSocio", "cliente123")
