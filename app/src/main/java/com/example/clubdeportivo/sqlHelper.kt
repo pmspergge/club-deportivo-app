@@ -232,7 +232,7 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
                     val contrasena = it.getString(it.getColumnIndex("contrasena"))
 
                     Log.d("Persona", "ID: $id, Nombre: $nombre, Apellido: $apellido, Direccion: $direccion, " +
-                            "DNI: $dni, Fecha Nacimiento: $fechaNacimiento, Apto Físico: $aptoFisico, " +
+                                "DNI: $dni, Fecha Nacimiento: $fechaNacimiento, Apto Físico: $aptoFisico, " +
                             "Socio: $socio, Admin: $admin, Usuario: $usuario, Contraseña: $contrasena")
                 } while (it.moveToNext())
             }
