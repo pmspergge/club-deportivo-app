@@ -56,7 +56,7 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         }
     }
 
-    private fun insertInitialData(db: SQLiteDatabase) {
+    fun insertInitialData(db: SQLiteDatabase) {
         insertPersona(db, "Admin2", "Admin2", "Admin Address2", "123456782", "1970-01-02", 1, 1, 1, "adminUser", "adminPassword")
         insertPersona(db, "Admin", "Admin", "Admin Address", "12345678", "1970-01-01", 1, 1, 1, "admin", "admin123")
         insertPersona(db, "Juan", "Perez", "Calle Falsa 123", "87654321", "1980-01-01", 1, 1, 0, "juan", "juan123")
@@ -267,4 +267,58 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         cursor.close()
         return user
     }
+
+
+    fun updatePersona(name: String, surname: String, address: String, dni: String, birthDate: String, aptoFisico: Int, socio: Int) {
+        val values = ContentValues().apply {
+            put("nombre", name)
+            put("apellido", surname)
+            put("direccion", address)
+            put("dni", dni)
+            put("fecha_nacimiento", birthDate)
+            put("apto_fisico", aptoFisico)
+            put("socio", socio)
+        }
+
+        val db = this.writableDatabase
+
+        // Update con criterio de selección
+        val selection = "dni = ?"
+        val selectionArgs = arrayOf(dni)
+
+        db.update("persona", values, selection, selectionArgs)
+        db.close()
+    }
+
+
+    fun getOnePersona(dni_a_buscar: String): Persona? {
+        val db = this.readableDatabase
+        val query = "SELECT * FROM persona WHERE dni = ?"
+        val cursor = db.rawQuery(query, arrayOf(dni_a_buscar))
+
+        var persona: Persona? = null
+        cursor.use {
+            if (it.moveToFirst()) {
+                val id = it.getInt(it.getColumnIndexOrThrow("id"))
+                val nombre = it.getString(it.getColumnIndexOrThrow("nombre"))
+                val apellido = it.getString(it.getColumnIndexOrThrow("apellido"))
+                val direccion = it.getString(it.getColumnIndexOrThrow("direccion"))
+                val dni = it.getString(it.getColumnIndexOrThrow("dni"))
+                val fechaNacimiento = it.getString(it.getColumnIndexOrThrow("fecha_nacimiento"))
+                val aptoFisico = it.getInt(it.getColumnIndexOrThrow("apto_fisico"))
+                val socio = it.getInt(it.getColumnIndexOrThrow("socio"))
+                val admin = it.getInt(it.getColumnIndexOrThrow("admin"))
+                val usuario = it.getString(it.getColumnIndexOrThrow("usuario"))
+                val contrasena = it.getString(it.getColumnIndexOrThrow("contrasena"))
+
+                persona = Persona(
+                    id, nombre, apellido, direccion, dni, fechaNacimiento, aptoFisico, socio, admin, usuario, contrasena
+                )
+            }
+        }
+        cursor.close()
+        db.close()
+        return persona
+    }
+
 }

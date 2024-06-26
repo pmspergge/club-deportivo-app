@@ -73,7 +73,7 @@ class Editar_Cliente : AppCompatActivity() {
             val socio = if (findViewById<CheckBox>(R.id.checkBox2).isChecked) 1 else 0
 
             dbHelper.updatePersona(nombre, apellido, direccion, dni, fechaNacimiento, aptoFisico, socio);
-            val intent = Intent(this, Menu::class.java)
+            val intent = Intent(this, Ver_Clientes::class.java)
             startActivity(intent)
         }
     }

@@ -17,7 +17,8 @@ class MainActivity : AppCompatActivity() {
 
         dbHelper = SqlHelper(this)
         dbHelper.printPersonaTable()
-
+        val db = dbHelper.writableDatabase
+        dbHelper.insertInitialData(db)
         val buttonLogin = findViewById<Button>(R.id.button_login)
         val editTextUsername = findViewById<EditText>(R.id.name)
         val editTextPassword = findViewById<EditText>(R.id.password)
@@ -31,7 +32,9 @@ class MainActivity : AppCompatActivity() {
                 Log.d("MainActivity", "Login attempt: username=$username, userType=$userType")
 
                 if (userType != null) {
-                    SharedPreferencesManager.saveUserData(username, userType, this)
+                    if (userType != null) {
+                        SharedPreferencesManager.saveUserData(username, userType, this)
+                    }
                     if (userType == "admin") {
                         Log.d("MainActivity", "Navigating to HomeAdmin")
                         val intent = Intent(this, HomeAdmin::class.java)
