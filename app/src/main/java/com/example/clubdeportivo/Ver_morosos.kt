@@ -50,12 +50,6 @@ class Ver_Morosos : AppCompatActivity() {
 
     private fun obtenerDatosTabla(): List<DatosTabla> {
         val dbHelper = SqlHelper(this)
-
-        // Example usage to insert a Cuota
-        val db = dbHelper.writableDatabase
-        dbHelper.insertCuota(db, 1, "June 22", "Socio", "2024-06-21", "Mes", 1, 100.0, "2024-06-22")
-        dbHelper.insertCuota(db, 2, "June 22", "Socio", "2024-06-21", "Mes", 1, 1000.0, "2024-06-22")
-
         val cuotas: List<Cuota> = dbHelper.retrieveCuotasByFechaVencimiento()
         val datos = mutableListOf<DatosTabla>()
         for (cuota in cuotas) {

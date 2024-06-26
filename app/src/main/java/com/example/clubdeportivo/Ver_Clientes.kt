@@ -50,7 +50,7 @@ class Ver_Clientes : AppCompatActivity(), AdaptadorTablaCliente.OnItemClickListe
         val datosTablaClientes = obtenerDatosTabla()
         val clienteAEditar = datosTablaClientes[position]
         val intent = Intent(this, Editar_Cliente::class.java)
-        intent.putExtra("Dni",clienteAEditar.dni)
+        intent.putExtra("Dni", clienteAEditar.dni)
         startActivity(intent)
     }
 

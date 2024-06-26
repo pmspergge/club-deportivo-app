@@ -16,12 +16,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         dbHelper = SqlHelper(this)
-        dbHelper.printPersonaTable()
-        val db = dbHelper.writableDatabase
-        dbHelper.insertInitialData(db)
+
         val buttonLogin = findViewById<Button>(R.id.button_login)
         val editTextUsername = findViewById<EditText>(R.id.name)
         val editTextPassword = findViewById<EditText>(R.id.password)
+
+        logAllPersonas()
 
         buttonLogin.setOnClickListener {
             val username = editTextUsername.text.toString()
@@ -32,9 +32,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d("MainActivity", "Login attempt: username=$username, userType=$userType")
 
                 if (userType != null) {
-                    if (userType != null) {
-                        SharedPreferencesManager.saveUserData(username, userType, this)
-                    }
+                    SharedPreferencesManager.saveUserData(username, userType, this)
                     if (userType == "admin") {
                         Log.d("MainActivity", "Navigating to HomeAdmin")
                         val intent = Intent(this, HomeAdmin::class.java)
@@ -53,4 +51,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    fun logAllPersonas() {
+        val dbHelper = SqlHelper(this)
+        val personas: List<Persona> = dbHelper.getAllPersonas()
+        for (persona in personas) {
+            Log.d("Persona", "${persona.id} - ${persona.nombre} ${persona.apellido} - DNI: ${persona.dni}")
+        }
+    }
+
 }
