@@ -1,11 +1,12 @@
 package com.example.clubdeportivo
+
 import android.database.Cursor
 import android.annotation.SuppressLint
-import android.util.Log
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -44,6 +45,7 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
             );
         """
         db.execSQL(createCuotaTable)
+        insertInitialData(db)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -54,7 +56,21 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         }
     }
 
-    fun insertPersona(name: String, surname: String, address: String, dni: String, birthDate: String, aptoFisico: Int, socio: Int, admin: Int, username: String, password: String) {
+    private fun insertInitialData(db: SQLiteDatabase) {
+        insertPersona(db, "Admin2", "Admin2", "Admin Address2", "123456782", "1970-01-02", 1, 1, 1, "adminUser", "adminPassword")
+        insertPersona(db, "Admin", "Admin", "Admin Address", "12345678", "1970-01-01", 1, 1, 1, "admin", "admin123")
+        insertPersona(db, "Juan", "Perez", "Calle Falsa 123", "87654321", "1980-01-01", 1, 1, 0, "juan", "juan123")
+        insertPersona(db, "ClienteSocio", "Perez", "Calle Real 456", "11223344", "1990-05-15", 1, 1, 0, "clienteSocio", "cliente123")
+        // Insert initial cuotas
+        insertCuota(db, 1, "June 22", "Socio", "2024-06-21", "Mes", 1, 100.0, "2024-06-22")
+        insertCuota(db, 2, "June 22", "Socio", "2024-06-21", "Mes", 1, 1000.0, "2024-06-22")
+        insertCuota(db, 3, "July 22", "Socio", "2024-07-21", "Mes", 1, 150.0, "2024-07-22")
+        insertCuota(db, 4, "August 22", "No Socio", "2024-08-21", "Mes", 1, 200.0, "2024-08-22")
+    }
+
+
+
+    fun insertPersona(db: SQLiteDatabase, name: String, surname: String, address: String, dni: String, birthDate: String, aptoFisico: Int, socio: Int, admin: Int, usuario: String, contrasena: String) {
         val values = ContentValues()
         values.put("nombre", name)
         values.put("apellido", surname)
@@ -64,31 +80,31 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         values.put("apto_fisico", aptoFisico)
         values.put("socio", socio)
         values.put("admin", admin)
-        values.put("usuario", username)
-        values.put("contrasena", password)
-
-        val db = this.writableDatabase
+        values.put("usuario", usuario)
+        values.put("contrasena", contrasena)
         db.insert("persona", null, values)
-        db.close()
     }
 
-    fun truncatePersonaTable() {
-        val db = this.writableDatabase
-        db.execSQL("DELETE FROM Persona")
-        db.close()
+    fun insertCuota(db: SQLiteDatabase, personaId: Int, mesDia: String, tipo: String, fechaPago: String, periodo: String, numeroCuota: Int, monto: Double, fechaVencimiento: String) {
+        val values = ContentValues()
+        values.put("persona_id", personaId)
+        values.put("mes_dia", mesDia)
+        values.put("tipo", tipo)
+        values.put("fecha_pago", fechaPago)
+        values.put("periodo", periodo)
+        values.put("numero_cuota", numeroCuota)
+        values.put("monto", monto)
+        values.put("fecha_vencimiento", fechaVencimiento)
+        db.insert("cuota", null, values)
     }
 
     @SuppressLint("Range")
     fun retrieveCuotasByFechaVencimiento(): List<Cuota> {
         val cuotas = mutableListOf<Cuota>()
         val db = readableDatabase
-
-        // Get today's date in yyyy-MM-dd format
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val todayDate = dateFormat.format(Date())
-
-        // Query cuotas where fecha_vencimiento equals today's date
-        val cursor: Cursor? = db.rawQuery("SELECT * FROM cuota INNER JOIN Persona ON cuota.persona_id = Persona.id WHERE fecha_vencimiento = ?", arrayOf(todayDate))
+        val cursor: Cursor? = db.rawQuery("SELECT * FROM cuota INNER JOIN persona ON cuota.persona_id = persona.id WHERE fecha_vencimiento = ?", arrayOf(todayDate))
 
         cursor?.use {
             while (it.moveToNext()) {
@@ -103,7 +119,7 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
                 val fechaVencimiento = it.getString(it.getColumnIndex("fecha_vencimiento"))
                 val personaNombre = it.getString(it.getColumnIndex("nombre"))
 
-                val cuota = Cuota(id, personaId, mesDia, tipo, fechaPago, periodo, numeroCuota, monto, fechaVencimiento,personaNombre)
+                val cuota = Cuota(id, personaId, mesDia, tipo, fechaPago, periodo, numeroCuota, monto, fechaVencimiento, personaNombre)
                 cuotas.add(cuota)
             }
         }
@@ -133,9 +149,7 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
                     val usuario = it.getString(it.getColumnIndexOrThrow("usuario"))
                     val contrasena = it.getString(it.getColumnIndexOrThrow("contrasena"))
 
-                    val persona = Persona(
-                        id, nombre, apellido, direccion, dni, fechaNacimiento, aptoFisico, socio, admin, usuario, contrasena
-                    )
+                    val persona = Persona(id, nombre, apellido, direccion, dni, fechaNacimiento, aptoFisico, socio, admin, usuario, contrasena)
                     personas.add(persona)
                 } while (it.moveToNext())
             }
@@ -145,28 +159,12 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         db.close()
         return personas
     }
-    fun insertCuota(personaId: Int, mesDia: String, tipo: String, fechaPago: String, periodo: String, numeroCuota: Int, monto: Double, fechaVencimiento: String) {
-        val values = ContentValues()
-        values.put("persona_id", personaId)
-        values.put("mes_dia", mesDia)
-        values.put("tipo", tipo)
-        values.put("fecha_pago", fechaPago)
-        values.put("periodo", periodo)
-        values.put("numero_cuota", numeroCuota)
-        values.put("monto", monto)
-        values.put("fecha_vencimiento", fechaVencimiento)
-
-        val db = this.writableDatabase
-        db.insert("cuota", null, values)
-        db.close()
-    }
 
     fun deletePersona(dni: String) {
         val db = this.writableDatabase
         db.delete("persona", "dni=?", arrayOf(dni))
         db.close()
     }
-
 
     @SuppressLint("Range")
     fun getAllUsers(): List<Map<String, String>> {
@@ -210,10 +208,12 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
     }
 
 
+
+
     @SuppressLint("Range")
     fun printPersonaTable() {
         val db = this.readableDatabase
-        val query = "SELECT * FROM Persona"
+        val query = "SELECT * FROM persona"
         val cursor: Cursor? = db.rawQuery(query, null)
 
         cursor?.use {
@@ -242,4 +242,29 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         db.close()
     }
 
+
+    @SuppressLint("Range")
+    fun getUserDetails(username: String?): Persona? {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM persona WHERE usuario = ?", arrayOf(username))
+
+        var user: Persona? = null
+        if (cursor.moveToFirst()) {
+            val id = cursor.getInt(cursor.getColumnIndex("id"))
+            val nombre = cursor.getString(cursor.getColumnIndex("nombre"))
+            val apellido = cursor.getString(cursor.getColumnIndex("apellido"))
+            val direccion = cursor.getString(cursor.getColumnIndex("direccion"))
+            val dni = cursor.getString(cursor.getColumnIndex("dni"))
+            val fechaNacimiento = cursor.getString(cursor.getColumnIndex("fecha_nacimiento"))
+            val aptoFisico = cursor.getInt(cursor.getColumnIndex("apto_fisico"))
+            val socio = cursor.getInt(cursor.getColumnIndex("socio"))
+            val admin = cursor.getInt(cursor.getColumnIndex("admin"))
+            val usuario = cursor.getString(cursor.getColumnIndex("usuario"))
+            val contrasena = cursor.getString(cursor.getColumnIndex("contrasena"))
+
+            user = Persona(id, nombre, apellido, direccion, dni, fechaNacimiento, aptoFisico, socio, admin, usuario, contrasena)
+        }
+        cursor.close()
+        return user
+    }
 }
