@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/nro_socio"
-            android:contentDescription="@string/nro_socio"/>
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -71,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/dni"
-            android:contentDescription="@string/dni"/>
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -90,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/nro_cuota"
-            android:contentDescription="@string/nro_cuota"/>
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -109,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/periodo"
-            android:contentDescription="@string/periodo"/>
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -128,7 +128,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/monto"
-            android:contentDescription="@string/monto"/>
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
