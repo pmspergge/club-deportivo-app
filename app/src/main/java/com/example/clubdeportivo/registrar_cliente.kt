@@ -41,6 +41,9 @@ class registrar_cliente : AppCompatActivity() {
 
             dbHelper.insertPersona(db, nombre, apellido, direccion, dni, fechaNacimiento, aptoFisico, socio, 0, "defaultUser", "defaultPassword")
             db.close()
+
+            val intent = Intent(this, Ver_Clientes::class.java)
+            startActivity(intent)
         }
     }
 }
