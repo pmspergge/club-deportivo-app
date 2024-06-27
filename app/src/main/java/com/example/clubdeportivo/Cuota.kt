@@ -9,4 +9,6 @@ class Cuota ( val id: Int,
               val numeroCuota: Int,
               val monto: Double,
               val fechaVencimiento: String,
-                val personaNombre: String)
+                val personaNombre: String) {
+
+}

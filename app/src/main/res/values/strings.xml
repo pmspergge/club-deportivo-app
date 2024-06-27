@@ -28,4 +28,24 @@
     <string name="date_of_birth">Fecha Nac.</string>
     <string name="has_physical_aptitude">Tiene apto físico</string>
     <string name="is_member">Es socio</string>
+    <string name="dni_label">DNI:</string>
+    <string name="nombre_label">Nombre:</string>
+    <string name="apellido_label">Apellido:</string>
+    <string name="monto_label">Monto:</string>
+    <string name="dni_hint">Ingrese el DNI</string>
+    <string name="nombre_hint">Ingrese el nombre</string>
+    <string name="apellido_hint">Ingrese el apellido</string>
+    <string name="monto_hint">Ingrese el monto a pagar</string>
+    <string name="buscar_persona">Buscar Persona</string>
+    <string name="btn_pagar">Pagar</string>
+    <string name="dni_label_format">%1$s: %2$s</string>
+    <string name="nombre_label_format">%1$s: %2$s</string>
+    <string name="apellido_label_format">%1$s: %2$s</string>
+    <string name="monto_label_format">%1$s: %.2f</string>
+    <string name="ingrese_el_dni">Ingrese el DNI</string>
+    <string name="buscar_personas">Buscar Persona</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="monto_a_pagar">Monto a Pagar</string>
+    <string name="pago">Pagar</string>
 </resources>

@@ -269,3 +269,6 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
     }
 
 }
+
+
+
