@@ -31,7 +31,7 @@ class HomeAdmin : AppCompatActivity() {
 
         val myButton3 = findViewById<Button>(R.id.button_Cobrar_cuota)
         myButton3.setOnClickListener {
-            val intent3 = Intent(this, Pagar_cuota_socio::class.java)
+            val intent3 = Intent(this, Pagarcuota::class.java)
             startActivity(intent3)
         }
 

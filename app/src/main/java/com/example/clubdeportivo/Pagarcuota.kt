@@ -4,9 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-class Pagar_cuota_socio : AppCompatActivity() {
+class Pagarcuota : AppCompatActivity() {
     private lateinit var editTextDNI: EditText
     private lateinit var editTextNombre: EditText
     private lateinit var editTextApellido: EditText
@@ -17,7 +18,7 @@ class Pagar_cuota_socio : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pagar_cuota_socio)
+        setContentView(R.layout.activity_pagarcuota)
 
         // Inicialización de SqlHelper
         sqlHelper = SqlHelper(this)
@@ -34,35 +35,33 @@ class Pagar_cuota_socio : AppCompatActivity() {
         btnBuscarPersona.setOnClickListener {
             val dni = editTextDNI.text.toString()
 
-            // Obtener datos de la persona por DNI utilizando SqlHelper
             val persona = sqlHelper.getOnePersona(dni)
-
-            // Mostrar los datos obtenidos en los EditText correspondientes si se encontró un resultado
             if (persona != null) {
                 editTextNombre.setText(persona.nombre)
                 editTextApellido.setText(persona.apellido)
+
+                val montoCuota = sqlHelper.getMontoByDNI(dni)
+                // Convertir el monto a String antes de establecerlo en EditText
+                val montoStr = montoCuota.toString()
+                editTextMonto.setText(montoStr)
             } else {
-                // Manejar el caso en que no se encuentre la persona en la base de datos
                 editTextNombre.setText("")
                 editTextApellido.setText("")
+                editTextMonto.setText("")
+                Toast.makeText(this, R.string.persona_no_encontrada, Toast.LENGTH_SHORT).show()
             }
-
-            // Limpiar el campo del monto
-            editTextMonto.setText("")
         }
 
-        // Listener para el botón Pagar
         btnPagar.setOnClickListener {
-            // Obtener el monto ingresado por el usuario
-            val monto = editTextMonto.text.toString().toDoubleOrNull()
+            val dni = editTextDNI.text.toString()
+            val nombre = editTextNombre.text.toString()
+            val apellido = editTextApellido.text.toString()
+            val montoStr = editTextMonto.text.toString()
+            val monto = montoStr.toDoubleOrNull()
 
             if (monto != null) {
-                // Obtener los datos de los EditText
-                val dni = editTextDNI.text.toString()
-                val nombre = editTextNombre.text.toString()
-                val apellido = editTextApellido.text.toString()
+                sqlHelper.actualizarCuotaPagada(dni, monto)
 
-                // Crear Intent para abrir la actividad DetallePago y enviar datos
                 val intent = Intent(this, DetallePago::class.java).apply {
                     putExtra("dni", dni)
                     putExtra("nombre", nombre)
@@ -71,14 +70,12 @@ class Pagar_cuota_socio : AppCompatActivity() {
                 }
                 startActivity(intent)
 
-                // Limpiar campos después de realizar el pago (opcional)
                 editTextDNI.setText("")
                 editTextNombre.setText("")
                 editTextApellido.setText("")
                 editTextMonto.setText("")
             } else {
-                // Manejar el caso en que el monto ingresado no sea válido
-                // Puedes mostrar un mensaje de error o realizar alguna acción adicional
+                Toast.makeText(this, R.string.monto_invalido, Toast.LENGTH_SHORT).show()
             }
         }
     }

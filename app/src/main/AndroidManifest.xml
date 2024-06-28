@@ -19,7 +19,7 @@
             android:name=".Ver_Clientes"
             android:exported="false" />
         <activity
-            android:name=".Pagar_cuota_socio"
+            android:name=".Pagarcuota"
             android:exported="false"
             android:theme="@style/Theme.Clubdeportivoapp" />
         <activity

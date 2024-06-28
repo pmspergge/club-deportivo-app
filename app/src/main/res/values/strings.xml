@@ -12,7 +12,7 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem...
     </string>
 
-    <string name="pagar_cuota_socio">Pagar cuota socio</string>
+    <string name="pagarcuota">Pagar cuota socio</string>
     <string name="nro_socio">Nro socio</string>
     <string name="dni">DNI</string>
     <string name="nro_cuota">Nro cuota</string>
@@ -37,6 +37,8 @@
     <string name="apellido_hint">Ingrese el apellido</string>
     <string name="monto_hint">Ingrese el monto a pagar</string>
     <string name="buscar_persona">Buscar Persona</string>
+    <string name="persona_no_encontrada">Persona no encontrada</string>
+    <string name="detalle_pago_format">DNI: %1\$s\nNombre: %2\$s\nApellido: %3\$s\nMonto: %4$.2f</string>
     <string name="btn_pagar">Pagar</string>
     <string name="dni_label_format">%1$s: %2$s</string>
     <string name="nombre_label_format">%1$s: %2$s</string>
@@ -48,4 +50,7 @@
     <string name="apellido">Apellido</string>
     <string name="monto_a_pagar">Monto a Pagar</string>
     <string name="pago">Pagar</string>
+    <string name="monto_cuota_pendiente">Monto de cuota pendiente: %s</string>
+    <string name="monto_no_encontrado">No se encontró monto de cuota pendiente</string>
+    <string name="monto_invalido">Monto ingresado inválido</string>
 </resources>
