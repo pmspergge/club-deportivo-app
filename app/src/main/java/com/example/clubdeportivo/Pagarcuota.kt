@@ -45,9 +45,11 @@ class Pagarcuota : AppCompatActivity() {
                 // Convertir el monto a String antes de establecerlo en EditText
                 val montoStr = montoCuota.toString()
                 editTextMonto.setText(montoStr)
-                showInfoDialog("No tiene cuotas a pagar")
-            } else {
-
+                if (montoCuota == null){
+                    showInfoDialog("No tiene cuotas a pagar")
+                    editTextMonto.setText("")
+                }
+                } else {
                 editTextNombre.setText("")
                 editTextApellido.setText("")
                 editTextMonto.setText("")
