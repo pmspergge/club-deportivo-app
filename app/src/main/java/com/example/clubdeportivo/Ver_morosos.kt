@@ -4,7 +4,6 @@ import AdaptadorTabla
 import DatosTabla
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
@@ -33,7 +32,7 @@ class Ver_Morosos : AppCompatActivity() {
 
         val myButton2 = findViewById<Button>(R.id.button5)
         myButton2.setOnClickListener {
-            val intent = Intent(this, Menu::class.java)
+            val intent = Intent(this, HomeAdmin::class.java)
             startActivity(intent)
         }
 

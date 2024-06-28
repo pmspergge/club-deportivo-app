@@ -166,6 +166,22 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         return cuotas
     }
 
+    fun insertNewCuota(
+        dni: String,
+        mesDia: String,
+        tipo: String,
+        fechaPago: String,
+        periodo: String,
+        numeroCuota: Int,
+        monto: Double,
+        fechaVencimiento: String
+    ) {
+        val db = writableDatabase
+        insertCuota(db, dni, mesDia, tipo, fechaPago, periodo, numeroCuota, monto, fechaVencimiento)
+        db.close()
+    }
+
+
     fun getAllPersonas(): List<Persona> {
         val personas = mutableListOf<Persona>()
         val db = this.readableDatabase
@@ -303,8 +319,8 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         return persona
     }
     @SuppressLint("Range")
-    fun getMontoByDNI(dni: String): Double? {
-        var montoCuota: Double? = null
+    fun getMontoByDNI(dni: String): Int? {
+        var montoCuota: Int? = 0
         val db = readableDatabase
         val cursor = db.rawQuery(
             "SELECT monto FROM cuota WHERE persona_dni = ? AND pagado = 0 ORDER BY fecha_pago DESC LIMIT 1",
@@ -312,7 +328,7 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         )
 
         if (cursor.moveToFirst()) {
-            montoCuota = cursor.getDouble(cursor.getColumnIndex("monto"))
+            montoCuota = cursor.getInt(cursor.getColumnIndex("monto"))
         }
 
         cursor.close()

@@ -11,14 +11,14 @@
     android:scrollbarSize="8dp"
     android:scrollbarStyle="insideInset"
     android:scrollbars="vertical"
-    tools:context=".Ver_morosos">
+    tools:context=".Ver_Morosos">
 
     <Button
         android:id="@+id/button5"
         android:layout_width="340dp"
         android:layout_height="59dp"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="#1330D1"
+        android:backgroundTint="@color/buttonLogin"
         android:text="Volver"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"

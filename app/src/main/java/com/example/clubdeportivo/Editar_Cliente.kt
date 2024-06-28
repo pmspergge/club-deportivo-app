@@ -41,6 +41,9 @@ class Editar_Cliente : AppCompatActivity() {
             findViewById<TextInputEditText>(R.id.textInputEditText2).setText(persona.apellido)
             findViewById<TextInputEditText>(R.id.textInputEditText3).setText(persona.direccion)
             findViewById<TextInputEditText>(R.id.textInputEditText4).setText(persona.dni)
+            findViewById<TextInputEditText>(R.id.textInputEditText4).isFocusable = false
+            findViewById<TextInputEditText>(R.id.textInputEditText4).isFocusableInTouchMode = false
+            findViewById<TextInputEditText>(R.id.textInputEditText4).isClickable = false
             findViewById<TextInputEditText>(R.id.textInputEditText5).setText(persona.fechaNacimiento)
             findViewById<CheckBox>(R.id.checkBox).isChecked = persona.aptoFisico == 1
             findViewById<CheckBox>(R.id.checkBox2).isChecked = persona.socio == 1

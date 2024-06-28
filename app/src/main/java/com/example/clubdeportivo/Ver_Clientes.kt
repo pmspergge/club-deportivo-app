@@ -5,7 +5,6 @@ import DatosTablaClientes
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
@@ -29,13 +28,13 @@ class Ver_Clientes : AppCompatActivity(), AdaptadorTablaCliente.OnItemClickListe
 
         val myButton = findViewById<ImageButton>(R.id.button_volver2)
         myButton.setOnClickListener {
-            val intent = Intent(this, Menu::class.java)
+            val intent = Intent(this, HomeAdmin::class.java)
             startActivity(intent)
         }
 
         val myButton2 = findViewById<Button>(R.id.button4)
         myButton2.setOnClickListener {
-            val intent = Intent(this, Menu::class.java)
+            val intent = Intent(this, HomeAdmin::class.java)
             startActivity(intent)
         }
 

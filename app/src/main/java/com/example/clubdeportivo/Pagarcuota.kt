@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 class Pagarcuota : AppCompatActivity() {
@@ -44,7 +45,9 @@ class Pagarcuota : AppCompatActivity() {
                 // Convertir el monto a String antes de establecerlo en EditText
                 val montoStr = montoCuota.toString()
                 editTextMonto.setText(montoStr)
+                showInfoDialog("No tiene cuotas a pagar")
             } else {
+
                 editTextNombre.setText("")
                 editTextApellido.setText("")
                 editTextMonto.setText("")
@@ -78,6 +81,15 @@ class Pagarcuota : AppCompatActivity() {
                 Toast.makeText(this, R.string.monto_invalido, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun showInfoDialog(message: String) {
+        AlertDialog.Builder(this)
+            .setMessage(message)
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     override fun onDestroy() {
