@@ -33,7 +33,7 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         val createCuotaTable = """
             CREATE TABLE cuota (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                persona_dni INTEGER,
+                persona_dni VARCHAR(20),
                 mes_dia VARCHAR(10),
                 tipo VARCHAR(10),
                 fecha_pago DATE,
@@ -47,6 +47,8 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         """
         db.execSQL(createCuotaTable)
 
+        // Insert initial data
+        insertInitialData(db)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -55,16 +57,29 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         onCreate(db)
     }
 
-    fun insertInitialData(db: SQLiteDatabase) {
+    private fun insertInitialData(db: SQLiteDatabase) {
+        val todayDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        // Insertar usuarios
         insertPersona(db, "Admin2", "Admin2", "Admin Address2", "123456782", "1970-01-02", 1, 1, 1, "adminUser", "adminPassword")
         insertPersona(db, "Admin", "Admin", "Admin Address", "12345678", "1970-01-01", 1, 1, 1, "admin", "admin123")
         insertPersona(db, "Juan", "Perez", "Calle Falsa 123", "87654321", "1980-01-01", 1, 1, 0, "juan", "juan123")
         insertPersona(db, "ClienteSocio", "Perez", "Calle Real 456", "11223344", "1990-05-15", 1, 0, 0, "clienteSocio", "cliente123")
 
-        // Insert initial cuotas
-        insertCuota(db, "12345678", "July 22", "Socio", "2024-07-21", "Mes", 1, 15000.0, SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()))
-        insertCuota(db, "11223344", "August 22", "No Socio", "2024-08-21", "Mes", 1, 25000.0, SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()))
+        // Nuevos usuarios
+        insertPersona(db, "Carlos", "Lopez", "Calle Nueva 123", "22334455", "1985-03-10", 1, 1, 0, "carlos", "carlos123")
+        insertPersona(db, "Ana", "Martinez", "Calle Vieja 789", "33445566", "1992-07-22", 1, 1, 0, "ana", "ana123")
+
+        // Insertar cuotas
+        insertCuota(db, "12345678", "July 22", "Socio", "2024-07-21", "Mes", 1, 15000.0, todayDate)
+        insertCuota(db, "11223344", "August 22", "No Socio", "2024-08-21", "Mes", 1, 25000.0, todayDate)
+
+        // Cuotas para nuevos usuarios
+        insertCuota(db, "22334455", "September 22", "Socio", "2024-09-21", "Mes", 1, 20000.0, todayDate)
+        insertCuota(db, "33445566", "October 22", "Socio", "2024-10-21", "Mes", 1, 22000.0, todayDate)
+        insertCuota(db, "22334455", "October 22", "Socio", "2024-10-21", "Mes", 2, 20000.0, todayDate)
+        insertCuota(db, "33445566", "November 22", "Socio", "2024-11-21", "Mes", 2, 22000.0, todayDate)
     }
+
 
     fun insertPersona(
         db: SQLiteDatabase,
@@ -105,34 +120,34 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         monto: Double,
         fechaVencimiento: String
     ) {
-        val persona = getOnePersona(dni)
-
-        if (persona != null) {
-            val values = ContentValues().apply {
-                put("persona_dni", dni) // Usamos el DNI de la persona
-                put("mes_dia", mesDia)
-                put("tipo", tipo)
-                put("fecha_pago", fechaPago)
-                put("periodo", periodo)
-                put("numero_cuota", numeroCuota)
-                put("monto", monto)
-                put("fecha_vencimiento", fechaVencimiento)
-            }
-            db.insert("cuota", null, values)
-        } else {
-            Log.e("SqlHelper", "No se encontró persona con DNI: $dni")
+        val values = ContentValues().apply {
+            put("persona_dni", dni) // Usamos el DNI de la persona
+            put("mes_dia", mesDia)
+            put("tipo", tipo)
+            put("fecha_pago", fechaPago)
+            put("periodo", periodo)
+            put("numero_cuota", numeroCuota)
+            put("monto", monto)
+            put("fecha_vencimiento", fechaVencimiento)
         }
+        db.insert("cuota", null, values)
     }
 
-    fun isPersonaTableEmpty(db: SQLiteDatabase): Boolean {
-        val cursor = db.rawQuery("SELECT COUNT(*) FROM persona", null)
-        var count = 0
-        if (cursor.moveToFirst()) {
-            count = cursor.getInt(0)
-        }
-        cursor.close()
-        return count == 0
+    fun insertNewCuota(
+        dni: String,
+        mesDia: String,
+        tipo: String,
+        fechaPago: String,
+        periodo: String,
+        numeroCuota: Int,
+        monto: Double,
+        fechaVencimiento: String
+    ) {
+        val db = writableDatabase
+        insertCuota(db, dni, mesDia, tipo, fechaPago, periodo, numeroCuota, monto, fechaVencimiento)
+        db.close()
     }
+
     @SuppressLint("Range")
     fun retrieveCuotasByFechaVencimiento(): List<Cuota> {
         val cuotas = mutableListOf<Cuota>()
@@ -152,7 +167,7 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
                 val tipo = it.getString(it.getColumnIndex("tipo"))
                 val fechaPago = it.getString(it.getColumnIndex("fecha_pago"))
                 val periodo = it.getString(it.getColumnIndex("periodo"))
-                val numeroCuota = it.getInt(it.getColumnIndex("numero_cuota")) // Asegúrate de obtener un Int aquí
+                val numeroCuota = it.getInt(it.getColumnIndex("numero_cuota"))
                 val monto = it.getDouble(it.getColumnIndex("monto"))
                 val fechaVencimiento = it.getString(it.getColumnIndex("fecha_vencimiento"))
                 val personaNombre = it.getString(it.getColumnIndex("nombre"))
@@ -165,22 +180,6 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         db.close()
         return cuotas
     }
-
-    fun insertNewCuota(
-        dni: String,
-        mesDia: String,
-        tipo: String,
-        fechaPago: String,
-        periodo: String,
-        numeroCuota: Int,
-        monto: Double,
-        fechaVencimiento: String
-    ) {
-        val db = writableDatabase
-        insertCuota(db, dni, mesDia, tipo, fechaPago, periodo, numeroCuota, monto, fechaVencimiento)
-        db.close()
-    }
-
 
     fun getAllPersonas(): List<Persona> {
         val personas = mutableListOf<Persona>()
@@ -266,6 +265,7 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         db.close()
         return user
     }
+
     fun updatePersona(name: String, surname: String, address: String, dni: String, birthDate: String, aptoFisico: Int, socio: Int) {
         val values = ContentValues().apply {
             put("nombre", name)
@@ -318,9 +318,10 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
 
         return persona
     }
+
     @SuppressLint("Range")
-    fun getMontoByDNI(dni: String): Int? {
-        var montoCuota: Int? = 0
+    fun getMontoByDNI(dni: String): Double? {
+        var montoCuota: Double? = null
         val db = readableDatabase
         val cursor = db.rawQuery(
             "SELECT monto FROM cuota WHERE persona_dni = ? AND pagado = 0 ORDER BY fecha_pago DESC LIMIT 1",
@@ -328,7 +329,7 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         )
 
         if (cursor.moveToFirst()) {
-            montoCuota = cursor.getInt(cursor.getColumnIndex("monto"))
+            montoCuota = cursor.getDouble(cursor.getColumnIndex("monto"))
         }
 
         cursor.close()
