@@ -70,14 +70,14 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
         insertPersona(db, "Ana", "Martinez", "Calle Vieja 789", "33445566", "1992-07-22", 1, 1, 0, "ana", "ana123")
 
         // Insertar cuotas
-        insertCuota(db, "12345678", "July 22", "Socio", "2024-07-21", "Mes", 1, 15000.0, todayDate)
+        insertCuota(db, "87654321", "July 22", "Socio", "2024-07-21", "Mes", 1, 15000.0, todayDate)
         insertCuota(db, "11223344", "August 22", "No Socio", "2024-08-21", "Mes", 1, 25000.0, todayDate)
 
         // Cuotas para nuevos usuarios
         insertCuota(db, "22334455", "September 22", "Socio", "2024-09-21", "Mes", 1, 20000.0, todayDate)
         insertCuota(db, "33445566", "October 22", "Socio", "2024-10-21", "Mes", 1, 22000.0, todayDate)
-        insertCuota(db, "22334455", "October 22", "Socio", "2024-10-21", "Mes", 2, 20000.0, todayDate)
-        insertCuota(db, "33445566", "November 22", "Socio", "2024-11-21", "Mes", 2, 22000.0, todayDate)
+        insertCuota(db, "123456782", "October 22", "Socio", "2024-10-21", "Mes", 2, 20000.0, todayDate)
+        insertCuota(db, "12345678", "November 22", "Socio", "2024-11-21", "Mes", 2, 22000.0, todayDate)
     }
 
 

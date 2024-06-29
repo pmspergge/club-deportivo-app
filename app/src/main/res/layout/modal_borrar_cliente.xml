@@ -43,7 +43,7 @@
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/material_dynamic_neutral80"
+            android:backgroundTint="#CCCC"
             android:layout_marginEnd="8dp"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"

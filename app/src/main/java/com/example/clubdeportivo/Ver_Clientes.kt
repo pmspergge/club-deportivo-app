@@ -71,7 +71,11 @@ class Ver_Clientes : AppCompatActivity(), AdaptadorTablaCliente.OnItemClickListe
         }
 
         btnDelete.setOnClickListener {
-            deleteClient(position)
+            try {
+                deleteClient(position)
+            } catch (e: Exception) {
+                Log.e("Ver_Clientes", "Error al eliminar cliente: ${e.message}", e)
+            }
             dialogBuilder.dismiss()
         }
 
