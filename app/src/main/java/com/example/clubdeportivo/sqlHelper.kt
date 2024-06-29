@@ -60,10 +60,10 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "clubDeportivo.db"
     private fun insertInitialData(db: SQLiteDatabase) {
         val todayDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         // Insertar usuarios
-        insertPersona(db, "Admin2", "Admin2", "Admin Address2", "123456782", "1970-01-02", 1, 1, 1, "adminUser", "adminPassword")
-        insertPersona(db, "Admin", "Admin", "Admin Address", "12345678", "1970-01-01", 1, 1, 1, "admin", "admin123")
+        insertPersona(db, "Admin2", "Admin2", "Admin Address2", "123456782", "1970-01-02", 1, 1, 1, "admin1", "adminpass1")
+        insertPersona(db, "Admin", "Admin", "Admin Address", "12345678", "1970-01-01", 1, 1, 1, "admin2", "adminpass2")
         insertPersona(db, "Juan", "Perez", "Calle Falsa 123", "87654321", "1980-01-01", 1, 1, 0, "juan", "juan123")
-        insertPersona(db, "ClienteSocio", "Perez", "Calle Real 456", "11223344", "1990-05-15", 1, 0, 0, "clienteSocio", "cliente123")
+        insertPersona(db, "Ruben", "Perez", "Calle Real 456", "11223344", "1990-05-15", 1, 0, 0, "ruben", "ruben123")
 
         // Nuevos usuarios
         insertPersona(db, "Carlos", "Lopez", "Calle Nueva 123", "22334455", "1985-03-10", 1, 1, 0, "carlos", "carlos123")
